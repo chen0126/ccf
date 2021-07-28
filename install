@@ -24,7 +24,7 @@ cd $newpath/plugin-llvm-gold
 mkdir build
 cd build
 ../binutils/configure --enable-gold --enable-plugins --disable-werror
-make
+make -j16
 cd ../
 
 # Build llvm with gold-plugin
@@ -32,31 +32,31 @@ cd $newpath/llvm
 mkdir build
 cd build
 cmake -DLLVM_BINUTILS_INCDIR="$newpath/plugin-llvm-gold/binutils/include" --enable-pic -DCMAKE_BUILD_TYPE=Release ../
-sudo make ENABLE_PIC=1 -j4
-sudo make install
+make ENABLE_PIC=1 -j16
+make install
 cd ../
 
 # Backup ar, nm, ld and ranlib
 cd $newpath/plugin-llvm-gold
 mkdir backup
-sudo cp /usr/bin/ar ./backup/
-sudo cp /usr/bin/nm ./backup/
-sudo cp /usr/bin/ld ./backup/
-sudo cp /usr/bin/ranlib ./backup/
+cp /usr/bin/ar ./backup/
+cp /usr/bin/nm ./backup/
+cp /usr/bin/ld ./backup/
+cp /usr/bin/ranlib ./backup/
 
 # Replace ar, nm, ld and ranlib
-sudo cp build/binutils/ar /usr/bin/
-sudo rm /usr/bin/nm
-sudo cp build/binutils/nm-new /usr/bin/nm
-sudo cp build/binutils/ranlib /usr/bin/
-sudo cp build/gold/ld-new /usr/bin/ld
+cp build/binutils/ar /usr/bin/
+rm /usr/bin/nm
+cp build/binutils/nm-new /usr/bin/nm
+cp build/binutils/ranlib /usr/bin/
+cp build/gold/ld-new /usr/bin/ld
 
 # Install LLVMgold.so to /usr/lib/bfd-plugins
 cd /usr/lib/
-sudo mkdir bfd-plugins
+mkdir bfd-plugins
 cd bfd-plugins
-sudo cp $newpath/llvm/build/lib/LLVMgold.so ./
-sudo cp $newpath/llvm/build/lib/libLTO.so ./
+cp $newpath/llvm/build/lib/LLVMgold.so ./
+cp $newpath/llvm/build/lib/libLTO.so ./
 
 # Export environment variables
 export RANLIB=/bin/true
@@ -72,8 +72,8 @@ sed -i "s|$oldpath|$newpath|g" $newpath/scripts/CGRALib/run.sh
 
 # =============================================================
 # Copy compilation script
-sudo cp $newpath/scripts/CGRALib/cgracc /usr/bin
-sudo chmod +x /usr/bin/cgracc
+cp $newpath/scripts/CGRALib/cgracc /usr/bin
+chmod +x /usr/bin/cgracc
 
 # =============================================================
 # Build instruction generation tool
@@ -88,7 +88,7 @@ chmod +x $newpath/scripts/*.sh
 #=============================================================
 # Build mapping tool
 cd $newpath/RAMP/Release/
-make
+make -j16
 cd ../DFGFiles
 g++ -O3 nodefile.cpp -o nodefile
 g++ -O3 edgefile.cpp -o edgefile
@@ -97,8 +97,8 @@ cd ../../
 #===========================================================
 # Build gem5
 cd $newpath/gem5
-scons build/ARM/gem5.opt -j2
+scons build/ARM/gem5.opt -j16
 sed -i "s|AtomicSimpleCPU|AtomicCGRA,AtomicSimpleCPU|g" $newpath/gem5/build/variables/ARM
-scons build/ARM/gem5.opt -j2
+scons build/ARM/gem5.opt -j16
 cd ../
 #==========================================================
