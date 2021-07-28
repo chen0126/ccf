@@ -20,7 +20,7 @@ obj="$1"
 
 #Setting Paths
 LEVEL=../..
-toolchain="/home/shail/ccf-init"
+toolchain="/root/ccf"
 script="$toolchain/scripts"
 opcodegen="$toolchain/InstructionGenerator/insgen"
 
