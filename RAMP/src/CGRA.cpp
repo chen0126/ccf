@@ -9,7 +9,7 @@
 
 #include "CGRA.h"
 #include "INTERITERATIONDEPENDENCY.h"
-
+#include <math.h>
 extern int map_id;
 
 CGRA::CGRA()
