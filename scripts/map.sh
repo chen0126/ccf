@@ -4,7 +4,7 @@ name=${cfile%.c}
 llfile="$name.ll"
 dfgfile="$name.dfg"
 schfile="$name.sch"
-toolchain="/home/shail/ccf-init"
+toolchain="/root/ccf"
 
 map="$toolchain/RAMP/Release"
 nodefile="$toolchain/RAMP/DFGFiles"
