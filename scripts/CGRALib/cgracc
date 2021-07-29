@@ -5,7 +5,7 @@
 #Expected arguments or inputs - .c or .cpp files
 
 #Set Paths
-toolchain="$HOME/shail/ccf"
+toolchain="/ccf"
 llvmbuild="$toolchain/llvm/build"
 llvmbin="$llvmbuild/bin"
 obj="obj"
