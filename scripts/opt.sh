@@ -5,7 +5,7 @@ name=${file%.ll}
 
 llfile="$name.ll"
 
-toolchain="$HOME/shail/ccf"
+toolchain="/ccf"
 llvmbin="$toolchain/llvm/build/bin"
 llvmlib="$toolchain/llvm/build/lib"
 llvmbuild="$toolchain/llvm/build"
